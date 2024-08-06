@@ -7,7 +7,7 @@
 
 #import "RCTStepIOSModule.h"
 #import <React/RCTLog.h>
-#import "hellov2xworld_reactnative-Swift.h"
+#import "HelloV2XWorldReactNative-Swift.h"
 
 @implementation RCTStepIOSModule {
   bool hasListeners;

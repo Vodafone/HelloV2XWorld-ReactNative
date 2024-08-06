@@ -1,4 +1,4 @@
-package com.hellov2xworld_reactnative
+package com.hellov2xworldreactnative
 
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule

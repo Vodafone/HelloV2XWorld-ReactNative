@@ -25,6 +25,7 @@ export function SplashScreen({ navigation }: { navigation: any }): React.JSX.Ele
 
       <View style={styles.pdfContainer}>
         <PDF
+          trustAllCerts={false}
           source={(Platform.OS === "ios") ? require("../assets/terms_and_conditions.pdf") : { uri: "bundle-assets://terms_and_conditions.pdf" }}
           style={styles.pdf} scale={4} enableDoubleTapZoom={false} spacing={0} enableAntialiasing={false} maxScale={4} minScale={4}
           onPageChanged={(page, numberOfPages) => {

@@ -1,5 +1,5 @@
 import React, { useState, LegacyRef, useRef } from "react";
-import { View, StyleSheet, Text, Platform } from "react-native";
+import { View, StyleSheet, Text, Platform, Image } from "react-native";
 import MapView, { Camera, Marker, PROVIDER_DEFAULT } from "react-native-maps";
 import { Colors } from "../utils/Colors.tsx";
 import { Strings } from "../utils/Strings.tsx";
@@ -13,6 +13,10 @@ let sdk = new InitSDK();
 let getRecentConnectivityStatus = new GetRecentConnectivityStatus();
 
 export function MapScreen({ navigation }: { navigation: any }): React.JSX.Element {
+
+  const userLocationMarkerSize = (Platform.OS === "ios") ? 32 : 36;
+
+  const camMarkerSize = (Platform.OS === "ios") ? 24 : 32;
 
   const map: LegacyRef<MapView> = useRef(null);
 
@@ -148,9 +152,10 @@ export function MapScreen({ navigation }: { navigation: any }): React.JSX.Elemen
           (currentLocation.stationId != "") ? <Marker
             title={`ITS: StationID=${currentLocation.stationId}`}
             coordinate={currentLocation}
-            description={`StationType=${getStationType(currentLocation.stationType).stationType}, Speed:${round(currentLocation.speed)}Km/h, Heading:${round(currentLocation.bearing)} degree`}
-            image={Images.currentLocationArrow}
-          /> : <View></View>
+            anchor={{ x: 0.5, y: 1 }}
+            description={`StationType=${getStationType(currentLocation.stationType).stationType}, Speed:${round(currentLocation.speed)}Km/h, Heading:${round(currentLocation.bearing)} degree`}>
+            <Image source={Images.currentLocationArrow} style={{width: userLocationMarkerSize, height: userLocationMarkerSize}} />
+          </Marker> : <View></View>
         }
 
         {cams.map((marker) => (
@@ -158,10 +163,11 @@ export function MapScreen({ navigation }: { navigation: any }): React.JSX.Elemen
             key={marker.stationId}
             title={`CAM: StationID=${marker.stationId}`}
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
+            anchor={{ x: 0.5, y: 1 }}
             description={`StationType=${getStationType(marker.stationType).stationType}, Speed=${round(marker.speed)}Km/h, Heading=${round(marker.bearing)} degree`}
-            style={{ transform: [{ rotate: `${marker.bearing - currentLocation.bearing}deg` }] }}
-            image={Images.camUserArrow}
-          />
+            style={{ transform: [{ rotate: `${marker.bearing - currentLocation.bearing}deg` }] }}>
+            <Image source={Images.camUserArrow} style={{width: camMarkerSize, height: camMarkerSize}} />
+          </Marker>
         ))}
 
       </MapView>

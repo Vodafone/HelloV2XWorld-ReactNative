@@ -34,7 +34,7 @@ You can also use this application as a model to start developing your own applic
   **=>Enter your pin Code**   
   ![STEPWP_Login2_annoted](https://user-images.githubusercontent.com/124599387/219347713-ae3ab91e-092d-4222-9241-91898eb10907.png)
 
-* Navigate to the page "Documentation" and select the "SDK documentation for Android" option.  
+* Navigate to the Access SDK page and select the "Get SDK for Android" option.  
   ![image](readme_images/android-8.png)
 
 * In the "SDK documentation for Android" page , click on the "Download SDK" button.  
@@ -46,12 +46,13 @@ You can also use this application as a model to start developing your own applic
 
 * In the "SDK documentation for Android" page , click on the "Download documentation" button.  
   ![image](https://user-images.githubusercontent.com/122537808/217552264-0fb27214-1d75-424b-8740-71678e837216.png)
+
   **=> Your browser downloads the archive "Android_V2X_SDK_Documentation_Vabc.zip"**
 * Open the archive and save on your laptop the Javadoc and the user Guide
 
 ### Download the V2X-SDK library for iOS
 
-* Navigate to the page "Documentation" and select the "SDK documentation for iOS" option.
+* Navigate to the Access SDK page and select the "Get SDK for iOS" option.
   ![image](readme_images/ios-8.png)
 
 * In the "SDK documentation for iOS" page.
@@ -105,9 +106,9 @@ You can also use this application as a model to start developing your own applic
 * After opening the HelloV2XWorld project.
 * Go to xcodproj settings page "General".
 * Scroll down to "Frameworks" and click on the "+" sign.
-  ![image](https://user-images.githubusercontent.com/124599387/219067872-dfad32dc-1b96-4f96-87a1-c50fa88635e7.png)
+  ![image](readme_images/5.png)
 * Choose "Add Others" then "Add Files" and select to add the pre-downloaded "VodafoneV2X.xcframework".
-  ![image](https://user-images.githubusercontent.com/124599387/219068916-3a921a60-3a4b-4ec6-8cdb-e794c6e35f6f.png)
+  ![image](readme_images/6.png)
 
 
 ### Set the Application_ID & Application_Token in your project
@@ -118,6 +119,7 @@ You can also use this application as a model to start developing your own applic
 ### Build the HelloV2XWorld application
 
 * Open Terminal in project directory and run:
+* react-native start
 * For Android: npx react-native run-android
 * For iOS: npx react-native run-ios
 

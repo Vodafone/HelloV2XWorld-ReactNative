@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* HelloV2XWorldReactNativeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* HelloV2XWorldReactNativeTests.m */; };
+		012BFD452C5D286000DA78C7 /* StepSdkHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BFD412C5D286000DA78C7 /* StepSdkHelper.swift */; };
+		012BFD462C5D286000DA78C7 /* RCTStepIOSModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 012BFD422C5D286000DA78C7 /* RCTStepIOSModule.m */; };
+		012BFD472C5D286000DA78C7 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012BFD442C5D286000DA78C7 /* Constant.swift */; };
+		01E33A7F2C612B5800930DB2 /* VodafoneV2X.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012BFD482C5D2B3100DA78C7 /* VodafoneV2X.xcframework */; };
+		01E33A802C612B5800930DB2 /* VodafoneV2X.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 012BFD482C5D2B3100DA78C7 /* VodafoneV2X.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C80B921A6F3F58F76C31292 /* libPods-HelloV2XWorldReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-HelloV2XWorldReactNative.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -27,10 +32,30 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		01E33A812C612B5800930DB2 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				01E33A802C612B5800930DB2 /* VodafoneV2X.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* HelloV2XWorldReactNativeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HelloV2XWorldReactNativeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* HelloV2XWorldReactNativeTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelloV2XWorldReactNativeTests.m; sourceTree = "<group>"; };
+		012BFD402C5D285F00DA78C7 /* HelloV2XWorldReactNative-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HelloV2XWorldReactNative-Bridging-Header.h"; sourceTree = "<group>"; };
+		012BFD412C5D286000DA78C7 /* StepSdkHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StepSdkHelper.swift; path = HelloV2XWorldReactNative/StepSdkHelper.swift; sourceTree = "<group>"; };
+		012BFD422C5D286000DA78C7 /* RCTStepIOSModule.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RCTStepIOSModule.m; path = HelloV2XWorldReactNative/RCTStepIOSModule.m; sourceTree = "<group>"; };
+		012BFD432C5D286000DA78C7 /* RCTStepIOSModule.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RCTStepIOSModule.h; path = HelloV2XWorldReactNative/RCTStepIOSModule.h; sourceTree = "<group>"; };
+		012BFD442C5D286000DA78C7 /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constant.swift; path = HelloV2XWorldReactNative/Constant.swift; sourceTree = "<group>"; };
+		012BFD482C5D2B3100DA78C7 /* VodafoneV2X.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; path = VodafoneV2X.xcframework; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* HelloV2XWorldReactNative.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HelloV2XWorldReactNative.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = HelloV2XWorldReactNative/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = HelloV2XWorldReactNative/AppDelegate.mm; sourceTree = "<group>"; };
@@ -45,7 +70,7 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-HelloV2XWorldReactNative.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-HelloV2XWorldReactNative.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = HelloV2XWorldReactNative/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.release.xcconfig"; path = "Target Support Files/Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests/Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.release.xcconfig"; sourceTree = "<group>"; };
-		BE3F6A0280FCFDAB4814B22B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; name = PrivacyInfo.xcprivacy; path = HelloV2XWorldReactNative/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		BE3F6A0280FCFDAB4814B22B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = HelloV2XWorldReactNative/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -62,6 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01E33A7F2C612B5800930DB2 /* VodafoneV2X.xcframework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-HelloV2XWorldReactNative.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -89,6 +115,10 @@
 		13B07FAE1A68108700A75B9A /* HelloV2XWorldReactNative */ = {
 			isa = PBXGroup;
 			children = (
+				012BFD442C5D286000DA78C7 /* Constant.swift */,
+				012BFD432C5D286000DA78C7 /* RCTStepIOSModule.h */,
+				012BFD422C5D286000DA78C7 /* RCTStepIOSModule.m */,
+				012BFD412C5D286000DA78C7 /* StepSdkHelper.swift */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -97,6 +127,7 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
 				BE3F6A0280FCFDAB4814B22B /* PrivacyInfo.xcprivacy */,
+				012BFD402C5D285F00DA78C7 /* HelloV2XWorldReactNative-Bridging-Header.h */,
 			);
 			name = HelloV2XWorldReactNative;
 			sourceTree = "<group>";
@@ -104,6 +135,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				012BFD482C5D2B3100DA78C7 /* VodafoneV2X.xcframework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-HelloV2XWorldReactNative.a */,
 				19F6CBCC0A4E27FBF8BF4A61 /* libPods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.a */,
@@ -188,6 +220,7 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
 				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
+				01E33A812C612B5800930DB2 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -211,7 +244,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -400,6 +433,9 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				012BFD472C5D286000DA78C7 /* Constant.swift in Sources */,
+				012BFD452C5D286000DA78C7 /* StepSdkHelper.swift in Sources */,
+				012BFD462C5D286000DA78C7 /* RCTStepIOSModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +454,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -445,6 +482,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-HelloV2XWorldReactNative-HelloV2XWorldReactNativeTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = HelloV2XWorldReactNativeTests/Info.plist;
@@ -474,6 +512,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = HelloV2XWorldReactNative/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -484,8 +523,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vodafone.v2x.ios-reactnative.hellov2xworld";
 				PRODUCT_NAME = HelloV2XWorldReactNative;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloV2XWorldReactNative-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -500,6 +540,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = HelloV2XWorldReactNative/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,8 +551,9 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.vodafone.v2x.ios-reactnative.hellov2xworld";
 				PRODUCT_NAME = HelloV2XWorldReactNative;
+				SWIFT_OBJC_BRIDGING_HEADER = "HelloV2XWorldReactNative-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

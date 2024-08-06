@@ -1,4 +1,4 @@
-package com.hellov2xworld_reactnative;
+package com.hellov2xworldreactnative;
 
 import android.content.Context;
 import android.content.SharedPreferences;

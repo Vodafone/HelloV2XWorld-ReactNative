@@ -116,6 +116,13 @@ You can also use this application as a model to start developing your own applic
 ![AStudio](readme_images/4.png)
 
 
+### Set the Google Maps API Key for Android
+
+* In Android App Manifest, replace the "GOOGLE_MAPS_API_KEY" with your google API key".
+
+![AStudio](readme_images/android-9.png)
+
+
 ### Build the HelloV2XWorld application
 
 * Open Terminal in project directory and run:

@@ -126,9 +126,14 @@ You can also use this application as a model to start developing your own applic
 ### Build the HelloV2XWorld application
 
 * Open Terminal in project directory and run:
+* npm install
 * react-native start
 * For Android: npx react-native run-android
-* For iOS: npx react-native run-ios
+* For iOS: 
+  * cd ios
+  * pod install
+  * cd ..
+  * npx react-native run-ios
 
 
 ### Run the HelloV2XWorld application on the virtual devices

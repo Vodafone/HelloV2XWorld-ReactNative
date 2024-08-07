@@ -1,6 +1,7 @@
 # OSX
 #
 .DS_Store
+src/utils/Credentials.tsx
 
 # Xcode
 #
@@ -33,6 +34,7 @@ local.properties
 .cxx/
 *.keystore
 !debug.keystore
+android/app/libs
 
 # node.js
 #

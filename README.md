@@ -18,7 +18,7 @@ You can also use this application as a model to start developing your own applic
 * Xcode version 14.1 or higher is already installed on your MacBook.
 * A software able to open rar & zip archives is already installed on your laptop.
 * You have some experience in React Native application development in JavaScript/TypeScript.
-* React Native (node, npm, react-native) already installed on your laptop.
+* React Native (nodejs, npm, react-native) already installed on your laptop.
 * You already created One virtual device in Android Studio (Android 8 or higher).
 * You already created One virtual device in XCode.
 * Your Internet connectivity is up and running.

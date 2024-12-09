@@ -395,7 +395,7 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 * @react-native-async-storage/async-storage v1.24.0 / MIT License (C) 2015-present, Facebook, Inc.
 * @react-navigation/native v6.1.18
 
-### Android Specific
+#### Android Specific
 * com.google.code.gson:gson v2.10.1 / Apache License 2.0
 * com.hivemq:hivemq-mqtt-client v1.3.0 / Apache License 2.0
 * group: 'org.apache.commons', name: 'commons-lang3' v3.12.0 / Apache License 2.0

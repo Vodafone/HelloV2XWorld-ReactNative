@@ -376,3 +376,27 @@ If you faced some issue regarding Ruby versions, make sure to upgrade ruby versi
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
+
+## Dependencies
+
+* STEP V2X SDK for Android/iOS.
+* react v18.2.0 / MIT License (C) Meta Platforms, Inc. and affiliates.
+* react-native v0.74.4 / MIT License (C) Meta Platforms, Inc. and affiliates / CC-BY-4.0 License.
+* react-native-blob-util v0.19.11 / MIT License (C) 2017 xeiyan@gmail.com.
+* react-native-element-dropdown v2.12.1 / MIT License (C) 2023 Hoa Phan.
+* react-native-exit-app v2.0.0 / MIT License (C) 2018 Wumke.
+* react-native-maps v1.17.3 / MIT License (C) 2015 Airbnb.
+* react-native-pdf v6.7.5 / MIT License (C) 2017 Wonday (@wonday.org).
+* react-native-permissions v4.1.5 / MIT License (C) 2019 Mathieu Acthernoene.
+* react-native-restart v0.0.27 / MIT License (C) 2020 Avishay Bar.
+* react-native-safe-area-context v4.10.8 / MIT License (C) 2019 Th3rd Wave.
+* react-native-screens v3.34.0 / MIT License (C) 2018 Software Mansion <swmansion.com>.
+* react-navigation v5.0.0
+* @react-native-async-storage/async-storage v1.24.0 / MIT License (C) 2015-present, Facebook, Inc.
+* @react-navigation/native v6.1.18
+
+### Android Specific
+* com.google.code.gson:gson v2.10.1 / Apache License 2.0
+* com.hivemq:hivemq-mqtt-client v1.3.0 / Apache License 2.0
+* group: 'org.apache.commons', name: 'commons-lang3' v3.12.0 / Apache License 2.0
+* group: 'org.eclipse.paho', name: 'org.eclipse.paho.client.mqttv3' v1.2.5 / Apache License 2.0

@@ -6,7 +6,7 @@ In this repository you can find an example of V2X application that shows how to 
 
 The HelloV2XWorld application demonstrates how easy it is to create a V2X application and exchange V2X messages with other road users .
 This application is powered by the V2X-SDK and the STEP platform developed by Vodafone.
-By cloning this project, you will be able to create and execute your first V2X application in less than 2 hour.
+By cloning this project, you will be able to create and execute your first V2X application in less than 2 hours.
 The HelloV2XWorld application shows a map with all the road users close to your location.
 You can also use this application as a model to start developing your own application.
 

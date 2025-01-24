@@ -6,5 +6,5 @@ export const Colors = {
   blackColor: '#000000',
   grayColorOpacity50: '#8e8e9380',
   grayColorOpacity70: '#8e8e93B3',
-  transparent: '#ffffff00'
+  transparent: '#ffffff00',
 };

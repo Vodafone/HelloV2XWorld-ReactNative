@@ -1,5 +1,6 @@
 package com.hellov2xworldreactnative
 
+import android.util.Log
 import com.facebook.react.bridge.ReactApplicationContext
 import com.facebook.react.bridge.ReactContextBaseJavaModule
 import com.facebook.react.bridge.ReactMethod
@@ -25,15 +26,17 @@ import com.vodafone.v2x.sdk.android.facade.exception.InvalidConfigException
 
 class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), EventListener {
 
-    private val parameters: Parameters = Parameters.getInstance(reactContext)
+    private val parameters: Parameters = Parameters(reactContext)
     private var sdkConfiguration: SDKConfiguration = SDKConfigurationBuilder().build()
 
     override fun getName(): String = "NativeSDKModule"
 
     @ReactMethod
-    fun initSDK(appId: String, appToken: String) {
+    fun initSDK(appId: String, appToken: String, camPublishGroup: String, camSubscribeGroup: String) {
         parameters.setApplicationId(appId)
         parameters.setApplicationToken(appToken)
+        parameters.setCamPublishGroup(camPublishGroup)
+        parameters.setCamSubscribeGroup(camSubscribeGroup)
         if (!V2XSDK.getInstance().isV2XServiceInitialized) initV2XService()
         if (!V2XSDK.getInstance().isV2XServiceStarted) startV2XService()
         if (V2XSDK.getInstance().isV2XServiceInitialized && V2XSDK.getInstance().isV2XServiceStarted) {
@@ -97,7 +100,7 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
             EventType.CAM_LIST_CHANGED -> emitMessage(EventType.CAM_LIST_CHANGED.name, processCAM(event as EventCamListChanged))
             EventType.ITS_LOCATION_LIST_CHANGED -> emitMessage(EventType.ITS_LOCATION_LIST_CHANGED.name, processITS(event as EventITSLocationListChanged))
             EventType.V2X_CONNECTIVITY_STATE_CHANGED -> emitMessage(EventType.V2X_CONNECTIVITY_STATE_CHANGED.name, processConnectionStatus(event as EventV2XConnectivityStateChanged))
-            else -> {}
+            else -> { Log.d(name, "UnSupported Event Type ... ") }
         }
     }
 

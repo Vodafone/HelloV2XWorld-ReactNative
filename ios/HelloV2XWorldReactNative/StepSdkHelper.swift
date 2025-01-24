@@ -21,7 +21,6 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
   private var mqttServiceCancellable: AnyCancellable?
   private var camListenerCancellable: AnyCancellable?
   var camListProvider: CAMListProvider?
-
   var alreadyInitialized = false
 
   @objc
@@ -30,17 +29,19 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
       let stationTypeId = credentials["STATION_TYPE_ID"] ?? ""
       self.updateStationType(stationType: Int(stationTypeId) ?? 0)
       if !self.alreadyInitialized {
-          self.initV2XService(appId: credentials["APP_ID"] ?? "", appToken: credentials["APP_TOKEN"] ?? "")
-          self.setupConnectivityListener()
-          self.startCAMService()
-          self.alreadyInitialized = true
-        }
+        self.initV2XService(appId: credentials["APP_ID"] ?? "", appToken: credentials["APP_TOKEN"] ?? "", camPublishGroup: credentials["CAM_PUBLISH_GROUP"] ?? Constant.camPublishGroup, camSubscribeGroup: credentials["CAM_SUBSCRIBE_GROUP"] ?? Constant.camSubscribeGroup)
+        self.setupConnectivityListener()
+        self.startCAMService()
+        self.alreadyInitialized = true
+      }
     }
   }
-  
+
   @objc
   public func stopSDK() {
-    if let isActive = container?.camService?.isActive, isActive == true { _ = self.container?.camService?.stop() }
+    if container?.camService?.isActive == true {
+      _ = self.container?.camService?.stop()
+    }
     mqttCancellable?.cancel()
     camListenerCancellable?.cancel()
     positionUpdates?.cancel()
@@ -58,34 +59,18 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
     }
   }
 
-  private func initV2XService(appId: String, appToken: String) {
-      let mqttConfig = V2XMQTTConfigurator(
-        stepInstance:V2XMQTTConfigurator.STEPInstance(rawValue: Constant.STEP_INSTANCE), username: appId,
-        pass: appToken,
-        reconnect: nil,
-        serviceAreaHandoverConfig: .none)
-      let locationServConfig = ServiceConfiguration(expiration: 5)
-      let camSubServiceGroup = MQTTSubServiceGroup(publish: Constant.CAM_PUBLISH_GROUP, subscribe: Constant.CAM_SUBSCRIBE_GROUP)
-      let camServConfig = ServiceConfiguration(expiration: 5, subServiceGroup: camSubServiceGroup, txRxRole: RxTxRoles(tx: true, rx: true))
-      let listServices = ListServices(location: locationServConfig,
-                                      cam: camServConfig,
-                                      denm: nil,
-                                      ivim: nil,
-                                      mapem: nil,
-                                      spatem: nil,
-                                      vam: nil,
-                                      cpm: nil,
-                                      custom: nil)
-      let config = V2XConfigurator(mqtt: mqttConfig,
-                                   services: listServices,
-                                   vehicleDimentions: nil,
-                                   gnssEmulationEndPoint: nil,
-                                   iccService: nil)
-      V2XDIContainer.setupDIContainer(with: config, geohashing: nil)
+  private func initV2XService(appId: String, appToken: String, camPublishGroup: String, camSubscribeGroup: String) {
+    let mqttConfig = V2XMQTTConfigurator(stepInstance:V2XMQTTConfigurator.STEPInstance(rawValue: Constant.stepInstance), username: appId, pass: appToken, reconnect: nil, serviceAreaHandoverConfig: .none)
+    let locationServConfig = ServiceConfiguration(expiration: 5)
+    let camSubServiceGroup = MQTTSubServiceGroup(publish: camPublishGroup, subscribe: camSubscribeGroup)
+    let camServConfig = ServiceConfiguration(expiration: 5, subServiceGroup: camSubServiceGroup, txRxRole: RxTxRoles(tx: true, rx: true))
+    let listServices = ListServices(location: locationServConfig, cam: camServConfig, denm: nil, ivim: nil, mapem: nil, spatem: nil, vam: nil, cpm: nil, custom: nil)
+    let config = V2XConfigurator(mqtt: mqttConfig, services: listServices, vehicleDimentions: nil, gnssEmulationEndPoint: nil, iccService: nil)
+    V2XDIContainer.setupDIContainer(with: config, geohashing: nil)
   }
 
   private func startCAMService() {
-    if let isActive = container?.camService?.isActive, isActive == false {
+    if container?.camService?.isActive == false {
       _ = self.container?.camService?.start()
     }
   }

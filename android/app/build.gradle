@@ -137,6 +137,7 @@ dependencies {
     implementation("com.hivemq:hivemq-mqtt-client:1.3.0")
 
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'androidx.preference:preference:1.2.1'
     debugApi(name:'v2xsdk-release', ext:'aar')
     releaseApi(name:'v2xsdk-release', ext:'aar')
 }

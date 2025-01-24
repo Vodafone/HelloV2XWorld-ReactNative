@@ -8,7 +8,7 @@
 import Foundation
 
 class Constant {
-  static let STEP_INSTANCE = "DE_PROD_FRANKFURT"
-  static let CAM_PUBLISH_GROUP = "510298_8"
-  static let CAM_SUBSCRIBE_GROUP = "510298_8"
+  static let stepInstance = "DE_PROD_FRANKFURT"
+  static let camPublishGroup = "478346_22"
+  static let camSubscribeGroup = "478346_22"
 }

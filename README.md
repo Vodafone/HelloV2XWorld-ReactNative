@@ -65,7 +65,7 @@ You can also use this application as a model to start developing your own applic
 => Your browser downloads the archive "VodafoneV2X_iOS_SDK.rar".
 * Open the archive, extract the V2X-SDK library file called "VodafoneV2X.xcframework" and save it on your laptop.
 
-### Retrieve the Application_ID & Application_Token, you will need these 2 parameters later to configure the HelloV2XWorld app.
+### Retrieve the Application_ID & Application_Token & the Private Group, you will need these 3 parameters later to configure the HelloV2XWorld app.
 
 * Go the [Test application](https://de-he.step.vodafone.com/applications) Test Application Web page.
 * Click on the Test Application button
@@ -114,7 +114,7 @@ You can also use this application as a model to start developing your own applic
 * Choose "Add Others" then "Add Files" and select to add the pre-downloaded "VodafoneV2X.xcframework".
   ![image](readme_images/6.png)
 
-### Set the Application_ID & Application_Token in your project
+### Set the Application_ID & Application_Token & the Private Group in your project
 
 ![AStudio](readme_images/4.png)
 

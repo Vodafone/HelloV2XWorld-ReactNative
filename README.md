@@ -65,7 +65,7 @@ You can also use this application as a model to start developing your own applic
 => Your browser downloads the archive "VodafoneV2X_iOS_SDK.rar".
 * Open the archive, extract the V2X-SDK library file called "VodafoneV2X.xcframework" and save it on your laptop.
 
-### Retrieve the Application_ID & Application_Token, you will need these 2 parameters later to configure the HelloV2XWorld app.
+### Retrieve the Application_ID & Application_Token & the Private Group, you will need these 3 parameters later to configure the HelloV2XWorld app.
 
 * Go the [Test application](https://de-he.step.vodafone.com/applications) Test Application Web page.
 * Click on the Test Application button
@@ -80,6 +80,10 @@ You can also use this application as a model to start developing your own applic
 * Select the SDK Key option , copy the SDK Key and save it as ApplicationToken
 
 ![TestAppToken](https://github.com/Vodafone/HelloV2XWorld-Android/assets/122537808/c4ac1a74-ca59-4faa-82c5-2eae6cd4f6f1)
+
+* Select the Private Topic option , copy the Number related to the publish/subscribe group and save it as CAM Publish Group & CAM Subscribe Group
+
+![TestAppToken](readme_images/7.png)
 
 ### Clone the HelloV2XWorld Application
 
@@ -110,9 +114,13 @@ You can also use this application as a model to start developing your own applic
 * Choose "Add Others" then "Add Files" and select to add the pre-downloaded "VodafoneV2X.xcframework".
   ![image](readme_images/6.png)
 
-### Set the Application_ID & Application_Token in your project
+### Set the Application_ID & Application_Token & the Private Group in your project
 
 ![AStudio](readme_images/4.png)
+
+### Set the CAM Publish Group & CAM Subscribe Group in your project (if different from default value)
+
+![AStudio](readme_images/8.png)
 
 ### Set the Google Maps API Key for Android
 
@@ -188,6 +196,8 @@ You can also use this application as a model to start developing your own applic
 #### Start building the project (Android Version)
 
 * Open a new terminal in the project directory (standalone terminal or through IDE you prefer).
+  * react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res
+  * This will bundle all changes to be used during building, then run:
   * npx react-native run-android
   * This will start building the android application and will launch the emulator.
   * All dependencies and react native packages dependencies will start downloading (this might take some time).
@@ -247,6 +257,8 @@ You can also use this application as a model to start developing your own applic
   * Navigate to ios project folder => cd ios
   * Install pods from the installed node modules and packages => pod install
   * After download and installation finished move back to project directory => cd ..
+  * react-native bundle --platform ios --dev false --entry-file index.js --bundle-output ios/HelloV2XWorldReactNative/main.jsbundle --assets-dest ios/HelloV2XWorldReactNative
+  * This will bundle all changes to be used during building, then run:
   * npx react-native run-ios
   * This will start building the android application and launch the iOS simulator.
   * After application build successfully, it will appear on the iOS simulator.

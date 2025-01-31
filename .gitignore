@@ -36,6 +36,10 @@ local.properties
 !debug.keystore
 android/app/libs/*.aar
 
+# iOS/Xcode
+ios/VodafoneV2X.xcframework
+ios/HelloV2XWorldReactNative/assets
+
 # node.js
 #
 node_modules/

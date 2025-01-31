@@ -1,11 +1,11 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const storeData = async (key: string, value: string) => {
   try {
     await AsyncStorage.setItem(key, value);
   } catch (e) {
     // saving error
-    console.log("Error storing data" + e);
+    console.log('Error storing data' + e);
   }
 };
 
@@ -17,6 +17,6 @@ export const getStoredData = async (key: string) => {
     }
   } catch (e) {
     // saving error
-    console.log("Error getting data" + e);
+    console.log('Error getting data' + e);
   }
 };

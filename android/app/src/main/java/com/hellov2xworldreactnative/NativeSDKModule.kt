@@ -117,10 +117,18 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                 val recordMap: WritableMap = WritableNativeMap()
                 recordMap.putString("stationId", record.stationID.toString())
                 recordMap.putInt("stationType", record.stationType)
-                recordMap.putDouble("bearing", record.headingInDegree.toDouble())
+                var bearing = 0.0
+                if(record.headingInDegree != null){
+                    bearing = record.headingInDegree.toDouble()
+                }
+                recordMap.putDouble("bearing", bearing)
                 recordMap.putDouble("latitude", record.latitude.toDouble())
                 recordMap.putDouble("longitude", record.longitude.toDouble())
-                recordMap.putDouble("speed", record.speedInKmH.toDouble())
+                var speed = 0.0
+                if(record.speedInKmH != null){
+                    speed =  record.speedInKmH.toDouble()
+                }
+                recordMap.putDouble("speed", speed)
                 cams.pushMap(recordMap)
             }
         }
@@ -133,10 +141,18 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         if (event.list.isNotEmpty()) {
             map.putString("stationId", V2XSDK.getInstance().sdkConfiguration.stationID.toString())
             map.putInt("stationType", V2XSDK.getInstance().sdkConfiguration.stationType.value)
-            map.putDouble("bearing",  event.list[0].location.bearingInDegree.toDouble())
+            var bearing = 0.0
+            if(event.list[0].location.bearingInDegree != null){
+                bearing = event.list[0].location.bearingInDegree.toDouble()
+            }
+            map.putDouble("bearing",  bearing)
             map.putDouble("latitude", event.list[0].location.latitude)
             map.putDouble("longitude", event.list[0].location.longitude)
-            map.putDouble("speed", event.list[0].location.speedInKmPerHour.toDouble())
+            var speed = 0.0
+            if(event.list[0].location.speedInKmPerHour != null){
+                speed = event.list[0].location.speedInKmPerHour.toDouble()
+            }
+            map.putDouble("speed", speed)
         }
         return map
     }

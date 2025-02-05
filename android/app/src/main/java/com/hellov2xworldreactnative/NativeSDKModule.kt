@@ -133,10 +133,18 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         if (event.list.isNotEmpty()) {
             map.putString("stationId", V2XSDK.getInstance().sdkConfiguration.stationID.toString())
             map.putInt("stationType", V2XSDK.getInstance().sdkConfiguration.stationType.value)
-            map.putDouble("bearing",  event.list[0].location.bearingInDegree.toDouble())
+            var bearing = 0.0
+            if(event.list[0].location.bearingInDegree != null){
+                bearing = event.list[0].location.bearingInDegree.toDouble()
+            }
+            map.putDouble("bearing",  bearing)
             map.putDouble("latitude", event.list[0].location.latitude)
             map.putDouble("longitude", event.list[0].location.longitude)
-            map.putDouble("speed", event.list[0].location.speedInKmPerHour.toDouble())
+            var speed = 0.0
+            if(event.list[0].location.speedInKmPerHour != null){
+                speed = event.list[0].location.speedInKmPerHour.toDouble()
+            }
+            map.putDouble("speed", speed)
         }
         return map
     }

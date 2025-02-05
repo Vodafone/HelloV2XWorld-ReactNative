@@ -117,18 +117,10 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
                 val recordMap: WritableMap = WritableNativeMap()
                 recordMap.putString("stationId", record.stationID.toString())
                 recordMap.putInt("stationType", record.stationType)
-                var bearing = 0.0
-                if(record.headingInDegree != null){
-                    bearing = record.headingInDegree.toDouble()
-                }
-                recordMap.putDouble("bearing", bearing)
+                recordMap.putDouble("bearing", record.headingInDegree.toDouble())
                 recordMap.putDouble("latitude", record.latitude.toDouble())
                 recordMap.putDouble("longitude", record.longitude.toDouble())
-                var speed = 0.0
-                if(record.speedInKmH != null){
-                    speed =  record.speedInKmH.toDouble()
-                }
-                recordMap.putDouble("speed", speed)
+                recordMap.putDouble("speed", record.speedInKmH.toDouble())
                 cams.pushMap(recordMap)
             }
         }

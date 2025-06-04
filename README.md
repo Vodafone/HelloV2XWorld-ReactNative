@@ -331,7 +331,7 @@ If you faced some issue regarding Ruby versions, make sure to upgrade ruby versi
     * make
   * Install Ruby: You might need to use sudo if you’re installing to a system-wide location:
     * sudo make install
-  * erify the Installation: Check that Ruby is installed correctly:
+  * Verify the Installation: Check that Ruby is installed correctly:
     * ruby -v
   * Update RubyGems: After installation, it’s a good practice to update RubyGems:
     * gem update --system
@@ -339,6 +339,17 @@ If you faced some issue regarding Ruby versions, make sure to upgrade ruby versi
     * cd .. 
     * rm -rf ruby-3.2.5 ruby-3.2.5.tar.gz
   * Close the Terminal.
+
+#### Debugging on Xcode:
+If you want to run the HelloV2XWorld iOS Application to debug it on the Simulator:
+* Follow the above steps for running the App normally on the Simulator.
+* Then, after it's installed and run successfully, in Xcode select the same Simulator.
+* From the Debug menu, select Attach to Process, then choose the HelloV2xWorldReactNative App from the menu.
+* Then, the App will be attached to Xcode, and you can debug normally.
+
+<img width="766" alt="Screenshot 2025-06-04 at 2 00 17 PM" src="https://github.com/user-attachments/assets/cb515e59-3ca1-412b-ae14-9ed151dcdbc4" />
+
+<img width="1566" alt="Screenshot 2025-06-04 at 2 00 55 PM" src="https://github.com/user-attachments/assets/ef49d49d-8877-4fce-b472-010710b68c9c" />
 
 
 ### Run the HelloV2XWorld application on the virtual devices

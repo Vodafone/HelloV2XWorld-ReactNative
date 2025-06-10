@@ -64,7 +64,7 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
     let locationServConfig = ServiceConfiguration(expiration: 5)
     let camSubServiceGroup = MQTTSubServiceGroup(publish: camPublishGroup, subscribe: camSubscribeGroup)
     let camServConfig = ServiceConfiguration(expiration: 5, subServiceGroup: camSubServiceGroup, txRxRole: RxTxRoles(tx: true, rx: true))
-    let listServices = ListServices(location: locationServConfig, cam: camServConfig, denm: nil, ivim: nil, mapem: nil, spatem: nil, vam: nil, cpm: nil, custom: nil)
+    let listServices = ListServices(location: locationServConfig, cam: camServConfig, denm: nil, ivim: nil, mapem: nil, spatem: nil, vam: nil, cpm: nil, poim: nil, custom: nil)
     let config = V2XConfigurator(mqtt: mqttConfig, services: listServices, vehicleDimentions: nil, gnssEmulationEndPoint: nil, iccService: nil)
     V2XDIContainer.setupDIContainer(with: config, geohashing: nil)
   }

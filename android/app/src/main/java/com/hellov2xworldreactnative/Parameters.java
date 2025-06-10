@@ -3,7 +3,7 @@ package com.hellov2xworldreactnative;
 import android.content.Context;
 import android.content.SharedPreferences;
 import androidx.preference.PreferenceManager;
-import com.vodafone.v2x.sdk.android.facade.enums.StationType;
+import com.vodafone.v2xsdk4javav2.facade.enums.StationType;
 
 /**
  * Parameters class provides an interface to access the Vodafone V2X related preferences, including the acceptance of terms and conditions, the type of the station, and the application ID and token.

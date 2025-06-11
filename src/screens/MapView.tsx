@@ -111,7 +111,7 @@ const ITSMarkerView = ({currentLocation}: {currentLocation: any}) => {
       tracksViewChanges={markersNotReady}
       title={`ITS: StationID=${currentLocation.stationId}`}
       coordinate={currentLocation}
-      anchor={{x: 0.5, y: 1}}
+      anchor={{x: 0.5, y: 0.5}}
       description={`StationType=${
         getStationType(currentLocation.stationType).stationType
       }, Speed:${round(currentLocation.speed)}Km/h, Heading:${round(
@@ -139,6 +139,14 @@ const CAMsMarkersView = ({
   currentLocation: any;
 }) => {
   const camMarkerSize = Platform.OS === 'ios' ? 24 : 32;
+
+  const [imageLoaded, setImageLoaded] = useState<{[key: string]: boolean}>({});
+
+  const onImageLoaded = (stationId: string) => {
+    setImageLoaded(() => ({
+      [stationId]: true,
+    }));
+  };
   return cams.map(
     (marker: {
       stationId: React.Key | null | undefined;
@@ -147,32 +155,53 @@ const CAMsMarkersView = ({
       stationType: number;
       speed: number;
       bearing: number;
-    }) => (
-      <MarkerAnimated
-        key={marker.stationId}
-        tracksViewChanges={false}
-        title={`CAM: StationID=${marker.stationId}`}
-        coordinate={{
-          latitude: marker.latitude,
-          longitude: marker.longitude,
-        }}
-        anchor={{x: 0.5, y: 1}}
-        description={`StationType=${
-          getStationType(marker.stationType).stationType
-        }, Speed=${round(marker.speed)}Km/h, Heading=${round(
-          marker.bearing,
-        )} degree`}
-        style={{
-          transform: [
-            {rotate: `${marker.bearing - currentLocation.bearing}deg`},
-          ],
-        }}>
-        <Image
-          source={Images.camUserArrow}
-          style={{width: camMarkerSize, height: camMarkerSize}}
-        />
-      </MarkerAnimated>
-    ),
+    }) => {
+      const hasImageLoaded = imageLoaded[`${marker.stationId}`];
+
+      return (
+        <MarkerAnimated
+          key={marker.stationId}
+          tracksViewChanges={!hasImageLoaded}
+          title={`CAM: StationID=${marker.stationId}`}
+          coordinate={{
+            latitude: marker.latitude,
+            longitude: marker.longitude,
+          }}
+          anchor={{x: 0.5, y: 0.5}}
+          description={`StationType=${
+            getStationType(marker.stationType).stationType
+          }, Speed=${round(marker.speed)}Km/h, Heading=${round(
+            marker.bearing,
+          )} degree`}
+          style={{
+            transform: [
+              {
+                rotate:
+                  Platform.OS === 'ios'
+                    ? '0deg'
+                    : `${marker.bearing - currentLocation.bearing}deg`,
+              },
+            ],
+          }}>
+          <Image
+            source={Images.camUserArrow}
+            style={{
+              width: camMarkerSize,
+              height: camMarkerSize,
+              transform: [
+                {
+                  rotate:
+                    Platform.OS === 'ios'
+                      ? `${marker.bearing - currentLocation.bearing}deg`
+                      : '0deg',
+                },
+              ],
+            }}
+            onLoad={() => onImageLoaded(`${marker.stationId}`)}
+          />
+        </MarkerAnimated>
+      );
+    },
   );
 };
 

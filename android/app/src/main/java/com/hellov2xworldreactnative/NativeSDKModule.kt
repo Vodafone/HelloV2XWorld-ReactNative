@@ -9,25 +9,24 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.bridge.WritableNativeArray
 import com.facebook.react.bridge.WritableNativeMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
-import com.vodafone.v2x.sdk.android.facade.SDKConfiguration
-import com.vodafone.v2x.sdk.android.facade.SDKConfiguration.SDKConfigurationBuilder
-import com.vodafone.v2x.sdk.android.facade.V2XSDK
-import com.vodafone.v2x.sdk.android.facade.enums.LogLevel
-import com.vodafone.v2x.sdk.android.facade.enums.MqttClientKind
-import com.vodafone.v2x.sdk.android.facade.enums.ServiceMode
-import com.vodafone.v2x.sdk.android.facade.enums.StationType
-import com.vodafone.v2x.sdk.android.facade.events.BaseEvent
-import com.vodafone.v2x.sdk.android.facade.events.EventCamListChanged
-import com.vodafone.v2x.sdk.android.facade.events.EventITSLocationListChanged
-import com.vodafone.v2x.sdk.android.facade.events.EventListener
-import com.vodafone.v2x.sdk.android.facade.events.EventType
-import com.vodafone.v2x.sdk.android.facade.events.EventV2XConnectivityStateChanged
-import com.vodafone.v2x.sdk.android.facade.exception.InvalidConfigException
+import com.vodafone.v2x.sdk.android.AndroidV2XSDK
+import com.vodafone.v2xsdk4javav2.facade.SDKConfiguration
+import com.vodafone.v2xsdk4javav2.facade.enums.LogLevel
+import com.vodafone.v2xsdk4javav2.facade.enums.ServiceMode
+import com.vodafone.v2xsdk4javav2.facade.enums.StationType
+import com.vodafone.v2xsdk4javav2.facade.events.BaseEvent
+import com.vodafone.v2xsdk4javav2.facade.events.EventCamListChanged
+import com.vodafone.v2xsdk4javav2.facade.events.EventITSLocationListChanged
+import com.vodafone.v2xsdk4javav2.facade.events.EventListener
+import com.vodafone.v2xsdk4javav2.facade.events.EventType
+import com.vodafone.v2xsdk4javav2.facade.events.EventV2XConnectivityStateChanged
+import com.vodafone.v2xsdk4javav2.facade.exceptions.InvalidConfigException
 
 class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext), EventListener {
 
     private val parameters: Parameters = Parameters(reactContext)
-    private var sdkConfiguration: SDKConfiguration = SDKConfigurationBuilder().build()
+    private var sdkConfiguration: SDKConfiguration = SDKConfiguration.builder().build()
+    private val isCAMServiceEnabled = true;
 
     override fun getName(): String = "NativeSDKModule"
 
@@ -37,13 +36,13 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
         parameters.setApplicationToken(appToken)
         parameters.setCamPublishGroup(camPublishGroup)
         parameters.setCamSubscribeGroup(camSubscribeGroup)
-        if (!V2XSDK.getInstance().isV2XServiceInitialized) initV2XService()
-        if (!V2XSDK.getInstance().isV2XServiceStarted) startV2XService()
-        if (V2XSDK.getInstance().isV2XServiceInitialized && V2XSDK.getInstance().isV2XServiceStarted) {
-            V2XSDK.getInstance().subscribe(this, EventType.CAM_LIST_CHANGED, EventType.ITS_LOCATION_LIST_CHANGED, EventType.V2X_CONNECTIVITY_STATE_CHANGED)
-            if (!V2XSDK.getInstance().isCAMServiceRunning && sdkConfiguration.isCAMServiceEnabled) {
+        if (!AndroidV2XSDK.getInstance().isV2XServiceInitialized) initV2XService()
+        if (!AndroidV2XSDK.getInstance().isV2XServiceRunning) startV2XService()
+        if (AndroidV2XSDK.getInstance().isV2XServiceInitialized && AndroidV2XSDK.getInstance().isV2XServiceRunning) {
+            AndroidV2XSDK.getInstance().subscribe(this, EventType.CAM_LIST_CHANGED, EventType.ITS_LOCATION_LIST_CHANGED, EventType.V2X_CONNECTIVITY_STATE_CHANGED)
+            if (!AndroidV2XSDK.getInstance().isCAMServiceRunning && isCAMServiceEnabled) {
                 try {
-                    V2XSDK.getInstance().startCAMService()
+                    AndroidV2XSDK.getInstance().startCAMService()
                 } catch (e: IllegalStateException) {
                     e.printStackTrace()
                 }
@@ -53,18 +52,17 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     private fun initV2XService() {
         try {
-            val cfg = SDKConfigurationBuilder().withMqttClientKind(MqttClientKind.HiveMQv3)
-            cfg.withMqttUsername(parameters.applicationID)
-            cfg.withMqttPassword(parameters.applicationToken)
-            cfg.withStationType(parameters.stationType)
-            cfg.withCAMServiceEnabled(true)
-            cfg.withCamServiceMode(ServiceMode.TxAndRx)
-            cfg.withCAMPublishGroup(parameters.camPublishGroup)
-            cfg.withCAMSubscribeGroup(parameters.camSubscribeGroup)
+            val cfg = SDKConfiguration.builder()
+                .applicationID(parameters.applicationID)
+                .applicationToken(parameters.applicationToken)
+                .stationType(parameters.stationType)
+                .camServiceMode(ServiceMode.TxAndRx)
+                .camPublishGroup(parameters.camPublishGroup)
+                .camSubscribeGroup(parameters.camSubscribeGroup)
             sdkConfiguration = cfg.build()
-            if (BuildConfig.BUILD_TYPE == "debug") V2XSDK.getInstance().setLogLevel(LogLevel.LEVEL_DEBUG)
-            else V2XSDK.getInstance().setLogLevel(LogLevel.LEVEL_NONE)
-            V2XSDK.getInstance().initV2XService(reactApplicationContext, sdkConfiguration)
+            if (BuildConfig.BUILD_TYPE == "debug") AndroidV2XSDK.getInstance().setLogLevel(LogLevel.DEBUG)
+            else AndroidV2XSDK.getInstance().setLogLevel(LogLevel.OFF)
+            AndroidV2XSDK.getInstance().initV2XService(reactApplicationContext, sdkConfiguration)
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -72,7 +70,7 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     private fun startV2XService() {
         try {
-            if (!V2XSDK.getInstance().isV2XServiceStarted) V2XSDK.getInstance().startV2XService(0, null)
+            if (!AndroidV2XSDK.getInstance().isV2XServiceRunning) AndroidV2XSDK.getInstance().startV2XService(0, null)
         } catch (e: InvalidConfigException) {
             e.printStackTrace()
         }
@@ -88,10 +86,10 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
 
     @ReactMethod
     fun stopSDK() {
-        if (V2XSDK.getInstance().isV2XServiceInitialized && V2XSDK.getInstance().isV2XServiceStarted) {
-            if (V2XSDK.getInstance().isCAMServiceRunning) V2XSDK.getInstance().stopCAMService()
-            V2XSDK.getInstance().unsubscribe(this)
-            V2XSDK.getInstance().stopV2XService()
+        if (AndroidV2XSDK.getInstance().isV2XServiceInitialized && AndroidV2XSDK.getInstance().isV2XServiceRunning) {
+            if (AndroidV2XSDK.getInstance().isCAMServiceRunning) AndroidV2XSDK.getInstance().stopCAMService()
+            AndroidV2XSDK.getInstance().unsubscribe(this)
+            AndroidV2XSDK.getInstance().stopV2XService()
         }
     }
 
@@ -109,7 +107,7 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     }
 
     private fun processCAM(event: EventCamListChanged): WritableMap {
-        val userStationId = V2XSDK.getInstance().sdkConfiguration.stationID
+        val userStationId = AndroidV2XSDK.getInstance().stationId
         val cams: WritableArray = WritableNativeArray()
         val map: WritableMap = WritableNativeMap()
         for (record in event.list) {
@@ -131,27 +129,19 @@ class NativeSDKModule(reactContext: ReactApplicationContext) : ReactContextBaseJ
     private fun processITS(event: EventITSLocationListChanged): WritableMap {
         val map: WritableMap = WritableNativeMap()
         if (event.list.isNotEmpty()) {
-            map.putString("stationId", V2XSDK.getInstance().sdkConfiguration.stationID.toString())
-            map.putInt("stationType", V2XSDK.getInstance().sdkConfiguration.stationType.value)
-            var bearing = 0.0
-            if(event.list[0].location.bearingInDegree != null){
-                bearing = event.list[0].location.bearingInDegree.toDouble()
-            }
-            map.putDouble("bearing",  bearing)
+            map.putString("stationId", AndroidV2XSDK.getInstance().stationId.toString())
+            map.putInt("stationType", AndroidV2XSDK.getInstance().stationType.value)
+            map.putDouble("bearing",  (event.list[0]?.location?.bearingInDegree ?: 0.0).toDouble())
             map.putDouble("latitude", event.list[0].location.latitude)
             map.putDouble("longitude", event.list[0].location.longitude)
-            var speed = 0.0
-            if(event.list[0].location.speedInKmPerHour != null){
-                speed = event.list[0].location.speedInKmPerHour.toDouble()
-            }
-            map.putDouble("speed", speed)
+            map.putDouble("speed", (event.list[0]?.location?.speedInKmPerHour ?: 0.0).toDouble())
         }
         return map
     }
 
     private fun processConnectionStatus(event: EventV2XConnectivityStateChanged): WritableMap {
         val map: WritableMap = WritableNativeMap()
-        map.putString("stationId", V2XSDK.getInstance().sdkConfiguration.stationID.toString())
+        map.putString("stationId", AndroidV2XSDK.getInstance().stationId.toString())
         map.putString("connectivity", event.connectivityState.name)
         return map
     }

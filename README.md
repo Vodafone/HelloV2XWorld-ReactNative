@@ -42,7 +42,7 @@ You can also use this application as a model to start developing your own applic
 * In the "SDK documentation for Android" page , click on the "Download SDK" button.  
   ![image](https://user-images.githubusercontent.com/122537808/217475876-45c8af5d-c11e-42f9-93cb-eb76ecfa7e44.png)  
   **=> Your browser downloads the archive "VodafoneV2X_Android_SDK.rar"**
-* Open the archive, extract the V2X-SDK library file called "v2xsdk-release.aar" and save it on your laptop.
+* Open the archive, extract the V2X-SDK library file called "Android V2X SDK Vxyz-release.aar" and save it on your laptop.
 
 ### Download the Android V2X-SDK documentation
 
@@ -101,8 +101,10 @@ You can also use this application as a model to start developing your own applic
 
 ### Import the Android V2X-SDK library in your project
 
-* Copy the "v2xsdk-release.aar" file to the app/libs folder of your project.  
+* Copy the "Android V2X SDK Vxyz-release.aar" file to the app/libs folder of your project.  
   ![image](readme_images/3.png)
+* Make sure to update the SDK dependency name "xyz" part in the app/gradle.build to match the SDK version you downloaded.
+  * ex.: implementation fileTree(dir: 'libs', include: ['Android V2X SDK V320-release.aar'])
 
 ### Import the iOS V2X-SDK library in your project
 

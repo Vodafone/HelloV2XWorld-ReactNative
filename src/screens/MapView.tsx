@@ -1,6 +1,10 @@
 import React, {useState, LegacyRef, useRef} from 'react';
 import {View, StyleSheet, Text, Platform, Image} from 'react-native';
-import MapView, {Camera, Marker, PROVIDER_DEFAULT} from 'react-native-maps';
+import MapView, {
+  Camera,
+  MarkerAnimated,
+  PROVIDER_DEFAULT,
+} from 'react-native-maps';
 import {Colors} from '../utils/Colors.tsx';
 import {Strings} from '../utils/Strings.tsx';
 import {MapButtonView} from '../components/MapButtonView.tsx';
@@ -96,11 +100,112 @@ const ActionButtonsView = ({
   );
 };
 
-export function MapScreen({navigation}: {navigation: any}): React.JSX.Element {
+const ITSMarkerView = ({currentLocation}: {currentLocation: any}) => {
   const userLocationMarkerSize = Platform.OS === 'ios' ? 32 : 36;
 
+  const [markersNotReady, setMarkersNotReady] = useState(true);
+
+  return currentLocation.stationId !== '' ? (
+    <MarkerAnimated
+      key={currentLocation.stationId}
+      tracksViewChanges={markersNotReady}
+      title={`ITS: StationID=${currentLocation.stationId}`}
+      coordinate={currentLocation}
+      anchor={{x: 0.5, y: 0.5}}
+      description={`StationType=${
+        getStationType(currentLocation.stationType).stationType
+      }, Speed:${round(currentLocation.speed)}Km/h, Heading:${round(
+        currentLocation.bearing,
+      )} degree`}>
+      <Image
+        source={Images.currentLocationArrow}
+        style={{
+          width: userLocationMarkerSize,
+          height: userLocationMarkerSize,
+        }}
+        onLoad={() => setMarkersNotReady(false)}
+      />
+    </MarkerAnimated>
+  ) : (
+    <View />
+  );
+};
+
+const CAMsMarkersView = ({
+  cams,
+  currentLocation,
+}: {
+  cams: any;
+  currentLocation: any;
+}) => {
   const camMarkerSize = Platform.OS === 'ios' ? 24 : 32;
 
+  const [imageLoaded, setImageLoaded] = useState<{[key: string]: boolean}>({});
+
+  const onImageLoaded = (stationId: string) => {
+    setImageLoaded(() => ({
+      [stationId]: true,
+    }));
+  };
+  return cams.map(
+    (marker: {
+      stationId: React.Key | null | undefined;
+      latitude: any;
+      longitude: any;
+      stationType: number;
+      speed: number;
+      bearing: number;
+    }) => {
+      const hasImageLoaded = imageLoaded[`${marker.stationId}`];
+
+      return (
+        <MarkerAnimated
+          key={marker.stationId}
+          tracksViewChanges={!hasImageLoaded}
+          title={`CAM: StationID=${marker.stationId}`}
+          coordinate={{
+            latitude: marker.latitude,
+            longitude: marker.longitude,
+          }}
+          anchor={{x: 0.5, y: 0.5}}
+          description={`StationType=${
+            getStationType(marker.stationType).stationType
+          }, Speed=${round(marker.speed)}Km/h, Heading=${round(
+            marker.bearing,
+          )} degree`}
+          style={{
+            transform: [
+              {
+                rotate:
+                  Platform.OS === 'ios'
+                    ? '0deg'
+                    : `${marker.bearing - currentLocation.bearing}deg`,
+              },
+            ],
+          }}>
+          <Image
+            source={Images.camUserArrow}
+            style={{
+              width: camMarkerSize,
+              height: camMarkerSize,
+              transform: [
+                {
+                  rotate:
+                    Platform.OS === 'ios'
+                      ? `${marker.bearing - currentLocation.bearing}deg`
+                      : '0deg',
+                },
+              ],
+            }}
+            onLoad={() => onImageLoaded(`${marker.stationId}`)}
+          />
+        </MarkerAnimated>
+      );
+    },
+  );
+};
+
+export function MapScreen({navigation}: {navigation: any}): React.JSX.Element {
   const map: LegacyRef<MapView> = useRef(null);
 
   const [sdkInitialized, setSDKInitialized] = useState(false);
@@ -185,53 +290,9 @@ export function MapScreen({navigation}: {navigation: any}): React.JSX.Element {
           altitude: 600,
           zoom: 18,
         }}>
-        {currentLocation.stationId !== '' ? (
-          <Marker
-            title={`ITS: StationID=${currentLocation.stationId}`}
-            coordinate={currentLocation}
-            anchor={{x: 0.5, y: 1}}
-            description={`StationType=${
-              getStationType(currentLocation.stationType).stationType
-            }, Speed:${round(currentLocation.speed)}Km/h, Heading:${round(
-              currentLocation.bearing,
-            )} degree`}>
-            <Image
-              source={Images.currentLocationArrow}
-              style={{
-                width: userLocationMarkerSize,
-                height: userLocationMarkerSize,
-              }}
-            />
-          </Marker>
-        ) : (
-          <View />
-        )}
+        <ITSMarkerView currentLocation={currentLocation} />
 
-        {cams.map(marker => (
-          <Marker
-            key={marker.stationId}
-            title={`CAM: StationID=${marker.stationId}`}
-            coordinate={{
-              latitude: marker.latitude,
-              longitude: marker.longitude,
-            }}
-            anchor={{x: 0.5, y: 1}}
-            description={`StationType=${
-              getStationType(marker.stationType).stationType
-            }, Speed=${round(marker.speed)}Km/h, Heading=${round(
-              marker.bearing,
-            )} degree`}
-            style={{
-              transform: [
-                {rotate: `${marker.bearing - currentLocation.bearing}deg`},
-              ],
-            }}>
-            <Image
-              source={Images.camUserArrow}
-              style={{width: camMarkerSize, height: camMarkerSize}}
-            />
-          </Marker>
-        ))}
+        <CAMsMarkersView cams={cams} currentLocation={currentLocation} />
       </MapView>
 
       <StatusTopView connectionStatus={connectionStatus} />

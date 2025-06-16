@@ -22,6 +22,7 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
   private var camListenerCancellable: AnyCancellable?
   var camListProvider: CAMListProvider?
   var alreadyInitialized = false
+  var lastITSHeading = 0.0
 
   @objc
   public func initSDK(credentials: [String: String]) {
@@ -106,11 +107,12 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
   private func processCAM(camRecords: [V2XCAM]) -> NSDictionary {
     var cams: [[String: Any?]] = []
     for record in camRecords {
+      let heading = record.object?.headingDegrees ?? 0.0
       if record.object?.stationID != ConfigsOnDemand.stationID {
         cams.append([
           "stationId": "\(record.object?.stationID ?? UInt())",
           "stationType": record.object?.stationType.rawValue,
-          "bearing": record.object?.headingDegrees,
+          "bearing": (heading > 0) ? heading : 0,
           "latitude": record.object?.coordinate.latitude,
           "longitude": record.object?.coordinate.longitude,
           "speed": record.object?.speedKmH
@@ -121,10 +123,13 @@ public class StepSdkHelper: NSObject, DIContainerProvider {
   }
 
   private func processITS(event: VodafoneV2X.V2XCLLocation) -> NSDictionary {
+    if(event.location.course > 0){
+      lastITSHeading = event.location.course
+    }
     return [
       "stationId": "\(ConfigsOnDemand.stationID)",
       "stationType": ConfigsOnDemand.stationType.rawValue,
-      "bearing": event.location.course,
+      "bearing": lastITSHeading,
       "latitude": event.location.coordinate.latitude,
       "longitude": event.location.coordinate.longitude,
       "speed": event.location.speed
